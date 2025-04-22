@@ -24,6 +24,7 @@ public class LoginTest {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
     }
+    /* Login page functionality Test cases*/
     // This test case is not applicable for further releases
     @Test(enabled = false)
     public void validLoginTest() {
