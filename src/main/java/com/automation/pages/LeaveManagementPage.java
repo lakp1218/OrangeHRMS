@@ -19,11 +19,11 @@ public class LeaveManagementPage {
     By toDate = By.id("leave.assign_toDate");
     By commentBox = By.id("leave.assign_comments");
     By applyButton = By.xpath("//*[@id='mount-vue-app']/div/div[2]/div/div[2]/form/div[13]/button/div");
-
+    //charan modified here
     By myLeaveButton = By.id("menu_leave_viewMyLeaveList");
     By leaveStatusDropdown = By.id("leaveList_cmbSubunit");
     By searchButton = By.id("btnSearch");
-
+    //=======//
     // Methods
     public void navigateToLeavePage() {
         driver.findElement(leaveMenu).click();
