@@ -6,7 +6,7 @@ public class DashboardPage {
 
         WebDriver driver;
 
-        private By dashboardHeader = By.xpath("//h6[text()='Dashboard']");
+        private By dashboardHeader = By.xpath("//a[@href='#/dashboard']");
 
         public DashboardPage(WebDriver driver) {
             this.driver = driver;

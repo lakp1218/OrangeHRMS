@@ -1,0 +1,7 @@
+<suite name="test_suite">
+    <test name="Check Login Page">
+        <classes>
+            <class name="com.automation.pages.LoginPage"/>
+        </classes>
+    </test>
+</suite>

@@ -1,38 +1,62 @@
-
 import com.automation.pages.DashboardPage;
 import com.automation.pages.LoginPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.Properties;
 
 public class LoginTest {
 
     WebDriver driver;
     LoginPage loginPage;
     DashboardPage dashboardPage;
+    Properties prop;
 
+   private void readProperties(){
+       prop = new Properties();
+        try {
+            FileInputStream fis = new FileInputStream("/Users/lakshmi/IdeaProjects/OrangeHRMS/src/test/java/testing.properties");
+            prop.load(fis);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+   }
     @BeforeMethod
     public void setUp() {
 
         //driver = new ChromeDriver();
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
-        driver.get("https://automation1218-trials7161.orangehrmlive.com/");
+        readProperties();
+        driver.get(prop.getProperty("url"));
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
     }
     /* Login page functionality Test cases*/
     // This test case is not applicable for further releases
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void validLoginTest() {
-        loginPage.login("Admin", "s1@3AsGuOF");
+        loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#/dashboard']")));
         Assert.assertTrue(dashboardPage.isDashboardDisplayed(), "Dashboard should be displayed");
     }
 
-    //@Test(priority = 2)
+    @Test(priority = 2)
     public void invalidUsernameTest() {
         loginPage.login("InvalidUser", "admin123");
         Assert.assertEquals(loginPage.getErrorMessageForUserName(), "Invalid credentials");
@@ -40,7 +64,7 @@ public class LoginTest {
 
     @Test(priority = 3)
     public void emptyUsernameTest() {
-        loginPage.login("", "admin123");
+        loginPage.login("", prop.getProperty("password"));
         Assert.assertEquals(loginPage.getErrorMessageForUserName(), "Username cannot be empty");
     }
 
