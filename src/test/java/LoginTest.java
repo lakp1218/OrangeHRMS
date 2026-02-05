@@ -18,7 +18,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 public class LoginTest {
-
+    //Author Mohitha Reddy
     WebDriver driver;
     LoginPage loginPage;
     DashboardPage dashboardPage;
@@ -50,6 +50,8 @@ public class LoginTest {
     // This test case is not applicable for further releases
     @Test(enabled = true)
     public void validLoginTest() {
+        /**
+         * Validating login test*/
         loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#/dashboard']")));
